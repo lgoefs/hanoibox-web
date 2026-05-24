@@ -265,7 +265,11 @@ async function loadDashboard() {
     document.getElementById('stat-active-sub').textContent = 'total registered members';
     document.getElementById('stat-checkins').textContent = data.today_checkins ?? '--';
     document.getElementById('stat-checkins-sub').textContent = 'checked in today';
-    document.getElementById('stat-revenue').textContent = '$' + (data.monthly_revenue ?? 0);
+    // monthly_revenue may be a scalar OR the 6-month array — handle both
+    const rev = Array.isArray(data.monthly_revenue)
+      ? (data.monthly_revenue[data.monthly_revenue.length - 1]?.revenue ?? 0)
+      : (data.monthly_revenue ?? 0);
+    document.getElementById('stat-revenue').textContent = '$' + rev;
     document.getElementById('stat-revenue-sub').textContent = 'this month';
     document.getElementById('stat-expiring').textContent = data.expiring_soon ?? '--';
 
