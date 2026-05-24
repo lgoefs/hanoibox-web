@@ -240,7 +240,7 @@ function saveSettings() {
   const url = document.getElementById('api-url-input').value.trim();
   const key = document.getElementById('api-key-input').value.trim();
   if (url) localStorage.setItem('hanoibox_api', url);
-  if (key) localStorage.setItem('hanoibox_key'), key);
+  if (key) localStorage.setItem('hanoibox_key', key);
   document.getElementById('settings-status').textContent = 'Saved! Loading dashboard...';
   setTimeout(() => showPage('dashboard'), 800);
 }
@@ -296,7 +296,7 @@ async function loadDashboard() {
     if (expiring.length === 0) {
       document.getElementById('expiry-list').innerHTML = '<div class="empty">No expiring memberships.</div>';
     } else {
-      document.getElementBryId('expiry-list').innerHTML = expiring.map(m => `
+      document.getElementById('expiry-list').innerHTML = expiring.map(m => `
         <div class="alert-item">
           <div class="alert-name">${m.name} <span class="pill pill-yellow">${m.days_left}d left</span></div>
           <div class="alert-sub">${m.plan} &mdash; expires ${m.expiry_date}</div>
